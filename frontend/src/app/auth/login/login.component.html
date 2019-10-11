@@ -1,0 +1,27 @@
+<h2>Login</h2>
+<p>{{message}}</p>
+
+<form
+  *ngIf="!authService.isLoggedIn"
+  [formGroup]="loginForm"
+  (ngSubmit)="login(loginForm.value)">
+
+  <div>
+    <label for="username">
+      Username
+    </label>
+    <input id="username" type="text" formControlName="username">
+  </div>
+
+  <div>
+    <label for="password">
+      Password
+    </label>
+    <input id="password" type="password" formControlName="password">
+  </div>
+
+  <button type="submit"  *ngIf="!authService.isLoggedIn">Login</button>
+</form>
+<p>
+  <button (click)="logout()" *ngIf="authService.isLoggedIn">Logout</button>
+</p>

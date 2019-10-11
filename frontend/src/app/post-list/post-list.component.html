@@ -1,0 +1,25 @@
+
+<h2>Posts</h2>
+<div *ngFor="let post of posts">
+
+  <h3 [className]="'post'">
+    <a [title]="post.title + ' '"
+       [routerLink]="['/posts', post.id]"
+       >
+      {{ post.title }}
+    </a>
+  </h3>
+
+  <p [className]="'post'">
+    <b>Created:</b> {{ post.created }}
+  </p>
+  <a *ngIf="!post.archived && this.authService.isLoggedIn" [routerLink]="['/posts', post.id, 'edit']">Edit</a>
+  <p [className]="'post'" *ngIf="post.archived">
+    <b>Archived</b>
+  </p>
+  <button (click)="this.blogPostService.deletePost(post.id)" *ngIf="!post.archived && this.authService.isLoggedIn">Archive</button>
+  <button (click)="this.blogPostService.unDeletePost(post.id)" *ngIf="post.archived">Unarchive</button>
+</div>
+<div *ngIf="this.posts.length === 0">
+  <p>No posts found</p>
+</div>

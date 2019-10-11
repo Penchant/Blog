@@ -1,0 +1,26 @@
+<p>comment works!</p>
+<h3>Comments</h3>
+<h4>Submit a Comment</h4>
+<form [formGroup]="commentForm"
+      (ngSubmit)="onSubmit(commentForm.value)">
+
+  <div>
+    <label for="body">
+      Message
+    </label>
+    <input id="body" type="text" formControlName="body">
+  </div>
+
+  <button class="button" type="submit">Submit</button>
+
+</form>
+<div *ngFor="let comment of comments">
+
+
+
+  <p >
+    {{ comment.body }}
+  </p>
+
+
+</div>

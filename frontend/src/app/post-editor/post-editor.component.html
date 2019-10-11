@@ -1,0 +1,21 @@
+
+<form [formGroup]="blogPostForm"
+      (ngSubmit)="onSubmit(blogPostForm.value)">
+
+  <div>
+    <label for="title">
+      Title
+    </label>
+    <input id="title" type="text" formControlName="title">
+  </div>
+
+  <div>
+    <label for="body">
+      Body
+    </label>
+    <input id="body" type="text" formControlName="body">
+  </div>
+
+  <button class="button" type="submit">Submit</button>
+
+</form>

@@ -1,0 +1,11 @@
+version: "3.2"
+services:
+  frontend:
+    image: "node:10"
+    volumes:
+      - ./frontend/:/home/node/app
+  backend:
+    image: "node:10"
+    working_dir: /home/node/app
+    volumes:
+      - ./backend/:/home/node/app

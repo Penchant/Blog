@@ -1,0 +1,23 @@
+<a [routerLink]="['/']">
+  <h1>The Ugly but Functional Blog</h1>
+</a>
+<h3>
+
+  <a *ngIf="!authService.isLoggedIn"
+     [title]="'Login'"
+     [routerLink]="['/login']">
+    Login
+  </a>
+  <a *ngIf="authService.isLoggedIn"
+     [title]="'Create a blog post'"
+     [routerLink]="['/createPost']">
+    Create a blog post
+  </a>
+  <button *ngIf="authService.isLoggedIn"
+     (click)="logout()">
+    Logout
+  </button>
+</h3>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

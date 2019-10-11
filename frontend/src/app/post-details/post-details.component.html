@@ -1,0 +1,11 @@
+<div *ngIf="post">
+<h2 [className]="'post'"> {{post.title}}</h2>
+  <p [className]="'post'">
+    <b>Created:</b> {{ post.created }}
+  </p>
+  <p *ngIf="post.archived"><b>Archived</b></p>
+  <div>
+    <p>{{ post.body}}</p>
+  </div>
+  <app-comment></app-comment>
+</div>
