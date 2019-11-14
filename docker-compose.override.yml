@@ -5,7 +5,8 @@ services:
     volumes:
       - ./frontend/:/home/node/app
   backend:
-    image: "node:10"
-    working_dir: /home/node/app
+    image: "mcr.microsoft.com/dotnet/core/sdk:3.0"
+    entrypoint: "dotnet run --project /app/BlogApi.csproj"
+    working_dir: /app
     volumes:
-      - ./backend/:/home/node/app
+      - ./backend/:/app

@@ -18,7 +18,7 @@ export class PostDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.blogPostService.getPost(+params.get('postId')).subscribe(data => {
-        const time = moment(new Date(data.created).toString())
+        const time = moment(new Date(data.created).toString());
         data.created = time.format('MMMM Do YYYY, h:mm:ss a');
         // If the post is deleted, route unauthenticated users to the list of posts
         if (data.archived && !this.authService.isLoggedIn) {

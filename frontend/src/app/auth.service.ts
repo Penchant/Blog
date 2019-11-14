@@ -17,7 +17,7 @@ export class AuthService {
     const formData = new FormData();
     formData.append('username', username);
     formData.append('password', password);
-    return this.http.post<boolean>('/api/login', formData). pipe(map(
+    return this.http.post<boolean>('/api/login', formData).pipe(map(
       (res) => this.isLoggedIn = res,
       (err) => console.log(err)
     ));

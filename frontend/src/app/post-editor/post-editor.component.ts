@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { BlogPostsService } from '../blog-posts.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
+import { getLocaleDateTimeFormat } from '@angular/common';
 
 @Component({
   selector: 'app-post-editor',
@@ -19,17 +20,17 @@ export class PostEditorComponent implements OnInit {
   ngOnInit() {
     this.blogPostForm = this.formBuilder.group({
       title: '',
-      body: ''
+      body: '',
+      created: ''
     });
     this.route.data.subscribe((data) => {
        if (data.kind === 'edit') {
         this.route.paramMap.subscribe(params => {
           this.blogPostService.getPost(+params.get('postId')).subscribe(post => {
-            console.log(post);
             this.postId = post.id;
-            console.log(this.blogPostForm);
             this.blogPostForm.controls.title.setValue(post.title);
             this.blogPostForm.controls.body.setValue(post.body);
+            this.blogPostForm.controls.created.setValue(post.created);
           });
         });
       }
@@ -44,7 +45,7 @@ export class PostEditorComponent implements OnInit {
     formData.append('body', postData.body);
     // formData.append('title', )
     if (this.postId !== -1) {
-      this.blogPostService.updatePost(this.postId, postData.title, postData.body);
+      this.blogPostService.updatePost(this.postId, postData.title, postData.body, postData.created);
     } else {
       this.blogPostService.createPost(formData);
     }

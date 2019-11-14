@@ -4,3 +4,4 @@ services:
     build: ./frontend/.
   backend:
     build: ./backend/.
+    entrypoint: ["dotnet", "BlogApi.dll"]

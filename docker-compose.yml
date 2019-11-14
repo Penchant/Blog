@@ -1,8 +1,7 @@
 version: "3.2"
 services:
   frontend:
-    build: ./frontend/.
-    user: "node"
+    #user: "node"
     working_dir: /home/node/app
     ports:
       - "4200:4200"
@@ -11,11 +10,9 @@ services:
       - backend
   backend:
     build: ./backend/.
-    user: "node"
-    working_dir: /home/node/app
+    working_dir: /app
     expose:
-      - "3000"
-    command: "npm start"
+      - "5001"
     depends_on:
       - database
   database:

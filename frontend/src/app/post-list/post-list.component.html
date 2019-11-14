@@ -17,8 +17,8 @@
   <p [className]="'post'" *ngIf="post.archived">
     <b>Archived</b>
   </p>
-  <button (click)="this.blogPostService.deletePost(post.id)" *ngIf="!post.archived && this.authService.isLoggedIn">Archive</button>
-  <button (click)="this.blogPostService.unDeletePost(post.id)" *ngIf="post.archived">Unarchive</button>
+  <button (click)="this.archivePost(post.id)" *ngIf="!post.archived && this.authService.isLoggedIn">Archive</button>
+  <button (click)="this.unarchivePost(post.id)" *ngIf="post.archived">Unarchive</button>
 </div>
 <div *ngIf="this.posts.length === 0">
   <p>No posts found</p>

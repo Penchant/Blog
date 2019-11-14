@@ -13,6 +13,7 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 import { CommentComponent } from './comment/comment.component';
 import { LoginComponent } from './auth/login/login.component';
 import {AuthGuard} from './auth/auth.guard';
+import {AuthService} from './auth.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import {AuthGuard} from './auth/auth.guard';
          {path: '', component: PostListComponent},
     ])
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -22,9 +22,10 @@ export class CommentComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.postId = params.get('postId');
       this.blogPostService.getComments(this.postId).subscribe(data => {
-        const time = moment(new Date(data.created).toString())
-        data.created = time.format('MMMM Do YYYY, h:mm:ss a');
-        console.log(data);
+        data.map((comment) => {
+          const time = moment(new Date(comment.created).toString())
+          comment.created = time.format('MMMM Do YYYY, h:mm:ss a');
+        });
         this.comments = data;
       });
     });
@@ -35,6 +36,7 @@ export class CommentComponent implements OnInit {
     console.warn('Your post has been submitted', commentData);
 
     this.blogPostService.createComment(this.postId, commentData.body);
+   (this.comments as any[]).push({body: commentData.body})
     this.commentForm.reset();
   }
 

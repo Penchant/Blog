@@ -2,70 +2,56 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import {Observable, Subscription} from 'rxjs';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogPostsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public authService: AuthService) { }
 
-  createPost(post) {
-    this.http.post('/api/posts', post).subscribe(
-        (res) => console.log(res),
-        (err) => console.log(err)
-      );
+  createPost(post : FormData): Subscription {
+    return this.http.post('/api/posts', post).subscribe();
   }
-  getPosts() {
-   return this.http.get<any[]>('/api/posts').pipe(map(res => {
-     return res;
-   }));
+  getAllPosts(): Observable<any[]> {
+    return this.http.get<any[]>('/api/posts');
   }
-  getPublicPosts() {
-    return this.http.get<any[]>('/api/posts?archived=false').pipe(map(res => {
-      return res;
-    }));
+  getPosts(): Observable<any[]> {
+  return this.authService.isLoggedIn ? this.getAllPosts() : this.getPublicPosts();
   }
-  getPost(postId) {
-    return this.http.get<any>(`/api/posts/${postId}`).pipe(map(res => {
-      return res;
-    }));
+  getPublicPosts(): Observable<any[]> {
+    return this.http.get<any>('/api/posts?archived=false');
   }
-  deletePost(postId) {
-    return this.http.delete(`/api/posts/${postId}`).subscribe(
-        (res) => console.log(res),
-        (err) => console.log(err)
-      );
+  getPost(postId: number): Observable<any> {
+    return this.http.get<any>(`/api/posts/${postId}`);
   }
-  unDeletePost(postId) {
-    return this.http.put(`/api/posts/${postId}?archived=false`, new FormData()).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
+  deletePost(postId: number): Subscription {
+    return this.http.delete(`/api/posts/${postId}`).subscribe();
   }
-  updatePost(postId, title, body) {
+  unDeletePost(postId: number): Subscription {
+    const formData = new FormData();
+    formData.append('archived', 'false');
+    return this.http.put(`/api/posts/${postId}/archived`, formData).subscribe();
+  }
+  updatePost(postId: number, title: string, body: string, created: string ): Subscription {
     const formData = new FormData();
     formData.append('body', body);
-    formData.append('title', title)
-    this.http.put(`/api/posts/${postId}`, formData).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
+    formData.append('title', title);
+    formData.append('id', postId.toString());
+    formData.append('created', created);
+    return this.http.put(`/api/posts/${postId}`, formData).subscribe();
   }
 
-  createComment(postId, comment) {
+  createComment(postId: number, comment: string): Subscription {
     const formData = new FormData();
     formData.append('body', comment);
-    this.http.post(`/api/posts/${postId}/comments`, formData).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
+    return this.http.post(`/api/posts/${postId}/comments`, formData).subscribe();
   }
 
-  getComments(postId) {
-    return this.http.get<any>(`/api/posts/${postId}/comments`).pipe(map(res => {
-      return res;
-    }));
+  getComments(postId: number): Observable<any> {
+    return this.http.get<any>(`/api/posts/${postId}/comments`);
   }
 
 }

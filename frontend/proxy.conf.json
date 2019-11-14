@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://blog_backend_1:3000",
+    "target": "https://backend:5001",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
