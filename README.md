@@ -10,8 +10,6 @@ Quick start
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 ```
 That will get you going with an empty blog running at port 4200 on your machine.
-**Note:** Looks like there are still some issues with the database deployment not being fully spun up
-when the backend end first attempts to connect, requiring `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d` needing to be ran twice.
 
 Configuration of some database properties, such as setting up a username and password can be modified by editing `example.env`.
 Updates to the database configuration also need to update the corresponding values in `backend/appsettings.json` that the backend uses for database connections
