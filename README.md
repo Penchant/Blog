@@ -1,6 +1,6 @@
 # The Ugly but Functional Blog
 
-The Ugly but Functional Blog is a blog project a blogging application made with a Node.js Express backend, Angular frontend, and MySQL database.  
+The Ugly but Functional Blog is a blog project a blogging application made with a ASP.NET Core 3.0 with Entity Framework backend, Angular frontend, and MySQL database.  
  The blog includes the ability to create posts, archive them, unarchive them, and edit them as a logged in user.
  Any users can see the posts and comment on them.
 
